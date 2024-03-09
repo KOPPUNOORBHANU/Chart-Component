@@ -30,10 +30,10 @@ import {
 import { HomeIcon, ShoppingCartIcon, TagIcon } from "@heroicons/react/20/solid";
 import { Dashboard } from "./pages/dashboard";
 
+
 function App() {
   return (
     <BrowserRouter>
-      <GitHubBanner />
       <RefineKbarProvider>
         <Refine
           dataProvider={dataProvider("https://api.finefoods.refine.dev")}

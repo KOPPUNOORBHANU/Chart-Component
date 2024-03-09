@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { CrudFilter, useList } from "@refinedev/core";
 import dayjs from "dayjs";
 import Stats from "../../components/dashboard/Stats";
@@ -7,6 +7,9 @@ import { ResponsiveBarChart } from "../../components/dashboard/ResponsiveBarChar
 import { TabView } from "../../components/dashboard/TabView";
 import { RecentSales } from "../../components/dashboard/RecentSales";
 import { IChartDatum, TTab } from "../../interfaces";
+import { Line, LineChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const filters: CrudFilter[] = [
   {
@@ -22,6 +25,8 @@ const filters: CrudFilter[] = [
 ];
 
 export const Dashboard: React.FC = () => {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const { data: dailyRevenue } = useList<IChartDatum>({
     resource: "dailyRevenue",
     filters,
@@ -34,6 +39,10 @@ export const Dashboard: React.FC = () => {
 
   const { data: newCustomers } = useList<IChartDatum>({
     resource: "newCustomers",
+    filters,
+  });
+  const { data: onlineStoreSessions } = useList<IChartDatum>({
+    resource: "dailyRevenue",
     filters,
   });
 
@@ -53,25 +62,56 @@ export const Dashboard: React.FC = () => {
   const memoizedRevenueData = useMemoizedChartData(dailyRevenue);
   const memoizedOrdersData = useMemoizedChartData(dailyOrders);
   const memoizedNewCustomersData = useMemoizedChartData(newCustomers);
+  const memoizedOnlineStoreSessions = useMemoizedChartData(onlineStoreSessions);
+  
 
   const tabs: TTab[] = [
     {
       id: 1,
-      label: "Daily Revenue",
+      label: "Online store sessions",
+      revenue:"255,581",
+      percent:"9%",
       content: (
-        <ResponsiveAreaChart
-          kpi="Daily revenue"
-          data={memoizedRevenueData}
-          colors={{
-            stroke: "rgb(54, 162, 235)",
-            fill: "rgba(54, 162, 235, 0.2)",
-          }}
+        // <ResponsiveAreaChart
+        //   kpi="Online store sessions"
+        //   data={memoizedOnlineStoreSessions}
+        //   colors={{
+        //     stroke: "rgb(54, 162, 235)",
+        //     fill: "rgba(54, 162, 235, 0.2)",
+        //   }}
+        // />
+        
+      <ResponsiveContainer width="100%" height={400}>
+      <LineChart data={memoizedOnlineStoreSessions}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Line
+          type="monotone"
+          dataKey="value"
+          name="Timeline 1"
+          stroke="blue"
+          dot={false} // Disable dots for solid line
         />
+        <Line
+          type="monotone"
+          dataKey="value2"
+          name="Timeline 2"
+          stroke="red"
+          strokeDasharray="5 5" // Make the line dashed for the second timeline
+          dot={false} // Disable dots for dashed line
+        />
+      </LineChart>
+    </ResponsiveContainer>
+
       ),
     },
     {
       id: 2,
-      label: "Daily Orders",
+      label: "Net return value",
+      revenue:"-$15,07.44",
+      percent:"9%",
       content: (
         <ResponsiveBarChart
           kpi="Daily orders"
@@ -85,7 +125,9 @@ export const Dashboard: React.FC = () => {
     },
     {
       id: 3,
-      label: "New Customers",
+      label: "Total orders",
+      revenue:"10,511",
+      percent:"9%",
       content: (
         <ResponsiveAreaChart
           kpi="New customers"
@@ -97,17 +139,27 @@ export const Dashboard: React.FC = () => {
         />
       ),
     },
+    {
+      id: 4,
+      label: "Conversion rate",
+      revenue:"3.18%",
+      percent:"9%",
+      content: (
+        <ResponsiveAreaChart
+          kpi="Online Store Sessions"
+          data={memoizedOnlineStoreSessions}
+          colors={{
+            stroke: "rgb(76, 175, 80)",
+            fill: "rgba(54, 162, 235, 0.2)",
+          }}
+        />
+      ),
+    },
   ];
 
   return (
     <>
-      <Stats
-        dailyRevenue={dailyRevenue}
-        dailyOrders={dailyOrders}
-        newCustomers={newCustomers}
-      />
       <TabView tabs={tabs} />
-      <RecentSales />
     </>
   );
 };
