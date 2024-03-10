@@ -5,7 +5,7 @@
 This assignment aims to implement a dashboard panel that displays a comparison of selected metrics in two time periods, following the design provided in the Figma link. The assignment utilizes the Refine template provided in the GitHub repository.
 
 ### GitHub Repository
-[Refine Template GitHub Repository](https://github.com/refinejs/refine)
+[Refine Template GitHub Repository](https://github.com/KOPPUNOORBHANU/Chart-Component.git)
 
 ## Implementation Details
 
