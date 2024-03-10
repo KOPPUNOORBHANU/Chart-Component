@@ -46,8 +46,6 @@ This assignment aims to implement a dashboard panel that displays a comparison o
 
 - Analyze the displayed charts and metrics to gain insights into the data.
 
-## Screenshots
-[Insert screenshots of the running web application here]
 
 ## Conclusion
 - The assignment has been successfully completed by implementing the required dashboard panel to display the comparison of selected metrics in two time periods. The implementation adheres to best architectural and coding practices, ensuring a bug-free and visually appealing user interface.
