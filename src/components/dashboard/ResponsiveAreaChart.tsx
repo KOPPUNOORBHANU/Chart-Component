@@ -1,34 +1,35 @@
 import React from "react";
 import {
   ResponsiveContainer,
-  AreaChart,
+  LineChart,
   CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
-  Area,
+  Line,
 } from "recharts";
 import { ChartTooltip } from "../../components/dashboard/ChartTooltip";
-import { IChartDatum } from "../../interfaces";
+import { DailyData } from "../../pages/dashboard/mockData";
 
 type TResponsiveAreaChartProps = {
   kpi: string;
-  data: IChartDatum[];
+  data1: DailyData[];
+  data2: DailyData[];
   colors: {
-    stroke: string;
-    fill: string;
+    stroke1: string;
+    stroke2: string;
   };
 };
 
-export const ResponsiveAreaChart = ({
+const ResponsiveAreaChart = ({
   kpi,
-  data,
+  data1,
+  data2,
   colors,
 }: TResponsiveAreaChartProps) => {
   return (
     <ResponsiveContainer height={400}>
-      <AreaChart
-        data={data}
+      <LineChart
         height={400}
         margin={{
           top: 10,
@@ -40,7 +41,7 @@ export const ResponsiveAreaChart = ({
         <CartesianGrid strokeDasharray="0 0 0" />
         <XAxis
           dataKey="date"
-          tickCount={data?.length ?? 0}
+          tickCount={data1?.length ?? 0}
           tick={{
             stroke: "light-grey",
             strokeWidth: 0.5,
@@ -65,18 +66,25 @@ export const ResponsiveAreaChart = ({
             borderRadius: "10px",
           }}
         />
-        <Area
+        <Line
           type="monotone"
+          data={data1}
           dataKey="value"
-          stroke={colors?.stroke}
+          stroke={colors.stroke1}
           strokeWidth={3}
-          fill={colors?.fill}
-          dot={{
-            stroke: colors?.stroke,
-            strokeWidth: 3,
-          }}
+          dot={{ stroke: colors.stroke1, strokeWidth: 3 }}
         />
-      </AreaChart>
+        <Line
+          type="monotone"
+          data={data2}
+          dataKey="value"
+          stroke={colors.stroke2}
+          strokeWidth={3}
+          dot={{ stroke: colors.stroke2, strokeWidth: 3 }}
+        />
+      </LineChart>
     </ResponsiveContainer>
   );
 };
+
+export default ResponsiveAreaChart;
