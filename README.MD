@@ -5,7 +5,7 @@
 This assignment aims to implement a dashboard panel that displays a comparison of selected metrics in two time periods, following the design provided in the Figma link. The assignment utilizes the Refine template provided in the GitHub repository.
 
 ### GitHub Repository
-[Refine Template GitHub Repository](https://github.com/KOPPUNOORBHANU/Chart-Component.git)
+[Refine Template GitHub Repository](https://github.com/refinejs/refine)
 
 ## Implementation Details
 
@@ -29,7 +29,7 @@ This assignment aims to implement a dashboard panel that displays a comparison o
 1. **Clone Repository**: Clone the Refine template GitHub repository to your local machine.
 
    ```bash
-   git clone https://github.com/refinejs/refine.git
+   git clone https://github.com/KOPPUNOORBHANU/Chart-Component.git
 ## Install Dependencies: Navigate to the cloned repository directory and install dependencies.
 - npm install
 
